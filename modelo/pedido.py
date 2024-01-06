@@ -56,7 +56,9 @@ class Pedido:
 
         return num_char
 
-    def genera_nro_pedido(self, posi_letra, num) -> str:
+    def genera_nro_pedido(
+        self, posi_letra, num
+    ) -> str:  # posi_letra y num los obtiene de la base de datos
         abecedario = list(string.ascii_uppercase)
 
         if num == 999:
