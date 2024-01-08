@@ -6,9 +6,9 @@ from detalle import Detalle
 
 class Pedido:
     def __init__(self, cliente: Cliente, detalle: Detalle, estado: str) -> None:
+        self._id_pedido = None
         self._datos_cliente = cliente
         self._detalle = detalle
-        self._nro_pedido = None
         self._estado_pedido = estado
 
     # -- GETTERS Y SETTERS
