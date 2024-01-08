@@ -39,7 +39,7 @@ class Pedido:
 
     def get_nro_pedido(self):
         print("Se esta obteniendo el número del pedido")
-        return self._nro_pedido
+        return self._id_pedido
 
     # -- OTROS MÉTODOS
 
@@ -66,4 +66,4 @@ class Pedido:
             num = 0
         else:
             num += 1
-        self._nro_pedido = f"{abecedario[posi_letra]}{self.num_character(num)}"
+        self._id_pedido = f"{abecedario[posi_letra]}{self.num_character(num)}"
