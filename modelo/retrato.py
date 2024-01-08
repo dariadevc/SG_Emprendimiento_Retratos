@@ -1,8 +1,7 @@
 # retrato.py
-from abc import ABC, abstractmethod
 
 
-class Retrato(ABC):
+class Retrato:
     def __init__(
         self,
         material: str,
