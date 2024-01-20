@@ -17,7 +17,7 @@ class DataBase(metaclass=DataBaseMeta):
             self.conexion = psycopg2.connect(
                 host="localhost",
                 port="5432",
-                database="BestFriends_DB",
+                database="emprendimiento_retratos_db",
                 user="postgres",
                 password="postgres",
             )
@@ -25,17 +25,17 @@ class DataBase(metaclass=DataBaseMeta):
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
 
-    def getAll(self, query):
+    def getAll(self, query, params = None):
         cursor = self.conexion.cursor()
-        cursor.execute(query)
+        cursor.execute(query, params)
         return cursor.fetchall()
 
-    def get(self, query):
+    def get(self, query, params = None):
         cursor = self.conexion.cursor()
-        cursor.execute(query)
+        cursor.execute(query, params)
         return cursor.fetchone()
 
-    def query(self, query):
+    def query(self, query, params = None):
         cursor = self.conexion.cursor()
-        cursor.execute(query)
+        cursor.execute(query, params)
         return cursor.connection.commit()
