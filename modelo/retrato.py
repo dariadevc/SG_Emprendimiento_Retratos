@@ -32,3 +32,23 @@ class Retrato:
 
 # Podria tener una entidad que se llame superficies, donde se guarden con un tag que este unido al material, entonces cuando se elige el material, te da opciones de
 # posibles superficies, teniendo datos como gramaje
+
+
+class RetratoAcrilico(Retrato):
+    def __init__(self, superficie: str, horas_estimadas: float) -> None:
+        super().__init__("ACRÍLICOS", 6000.00, superficie, 2000.00, horas_estimadas)
+
+
+class RetratoGouache(Retrato):
+    def __init__(self, superficie: str, horas_estimadas: float) -> None:
+        super().__init__("GOUACHE", 8000.00, superficie, 2000.00, horas_estimadas)
+
+
+class RetratoOleo(Retrato):
+    def __init__(self, superficie: str, horas_estimadas: float) -> None:
+        super().__init__("ÓLEO", 11500.00, superficie, 3000.00, horas_estimadas)
+
+
+class RetratoLapices(Retrato):
+    def __init__(self, superficie: str, horas_estimadas: float) -> None:
+        super().__init__("LAPICES", 6000.00, superficie, 1500.00, horas_estimadas)
