@@ -89,7 +89,7 @@ class ModeloClientes:
         self.base.query(consulta, parametros)
 
     def eliminar_cliente(self, dni):
-        datos = self.extrae_datos_cliente(dni)
+        datos = self.extraer_datos_cliente(dni)
         print(
             f"El cliente {datos[0]} {datos[1]}, con dni {datos[2]}, fue eliminado de la base de datos."
         )
