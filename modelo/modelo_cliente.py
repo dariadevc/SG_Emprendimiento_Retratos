@@ -67,9 +67,8 @@ class ClienteExistente(Exception):
 class ModeloClientes:
     def __init__(self) -> None:
         self.base = DataBase()
-        self.cliente = None
 
-    # ABM
+    # * ABM
 
     def insertar_cliente(self, nombre, apellido, dni, email):
         try:
@@ -97,7 +96,7 @@ class ModeloClientes:
         parametros = (dni,)
         self.base.query(consulta, parametros)
 
-    # Otros
+    # * OTROS
 
     def leer_clientes(self):
         datos = self.base.getAll(

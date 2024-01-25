@@ -39,3 +39,10 @@ class DataBase(metaclass=DataBaseMeta):
         cursor = self.conexion.cursor()
         cursor.execute(query, params)
         return cursor.connection.commit()
+
+
+base = DataBase()
+consulta = "SELECT valor_dato FROM public.datos_id ORDER BY id_dato ASC; "
+valores = base.getAll(consulta)
+
+print(valores[0])  # Extrae como tupla
