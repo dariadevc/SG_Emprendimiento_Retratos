@@ -8,68 +8,68 @@ from datetime import datetime
 
 
 # class Pedido:
-# def __init__(self, cliente: Cliente, detalle: Detalle, estado: str) -> None:
-#     self._id_pedido = None
-#     self._datos_cliente = cliente
-#     self._detalle = detalle
-#     self._estado_pedido = estado
+    # def __init__(self, cliente: Cliente, detalle: Detalle, estado: str) -> None:
+    #     self._id_pedido = None
+    #     self._datos_cliente = cliente
+    #     self._detalle = detalle
+    #     self._estado_pedido = estado
 
-# # -- GETTERS Y SETTERS
+    # # -- GETTERS Y SETTERS
 
-# def get_datos_cliente(self):
-#     print("Se estan obteniendo los datos de ")
-#     return self._datos_cliente
+    # def get_datos_cliente(self):
+    #     print("Se estan obteniendo los datos de ")
+    #     return self._datos_cliente
 
-# def set_datos_cliente(self, cliente):
-#     print("Se modificaron los datos de ")
-#     self._datos_cliente = cliente
+    # def set_datos_cliente(self, cliente):
+    #     print("Se modificaron los datos de ")
+    #     self._datos_cliente = cliente
 
-# def get_detalle(self):
-#     print("Se estan obteniendo los datos de ")
-#     return self._detalle
+    # def get_detalle(self):
+    #     print("Se estan obteniendo los datos de ")
+    #     return self._detalle
 
-# def set_detalle(self, detalle):
-#     print("Se modificaron los datos de ")
-#     self._detalle = detalle
+    # def set_detalle(self, detalle):
+    #     print("Se modificaron los datos de ")
+    #     self._detalle = detalle
 
-# def get_estado_pedido(self):
-#     print("Se estan obteniendo los datos de ")
-#     return self._estado_pedido
+    # def get_estado_pedido(self):
+    #     print("Se estan obteniendo los datos de ")
+    #     return self._estado_pedido
 
-# def set_estado_pedido(self, estado):
-#     print("Se modificaron los datos de ")
-#     self._estado_pedido = estado
+    # def set_estado_pedido(self, estado):
+    #     print("Se modificaron los datos de ")
+    #     self._estado_pedido = estado
 
-# def get_nro_pedido(self):
-#     print("Se esta obteniendo el número del pedido")
-#     return self._id_pedido
+    # def get_nro_pedido(self):
+    #     print("Se esta obteniendo el número del pedido")
+    #     return self._id_pedido
 
-# # -- OTROS MÉTODOS
+    # # -- OTROS MÉTODOS
 
-# def num_character(self, num) -> str:
-#     """Convierte al número en una str que se completa con ceros a la izquierda hasta completar 3 dígitos"""
+    # def num_character(self, num) -> str:
+    #     """Convierte al número en una str que se completa con ceros a la izquierda hasta completar 3 dígitos"""
 
-#     num_char = str(num)
-#     if len(num_char) == 3:
-#         num_char = str(num)
-#     else:
-#         num_char = str(num)
-#         while len(num_char) < 3:
-#             num_char = f"0{num_char}"
+    #     num_char = str(num)
+    #     if len(num_char) == 3:
+    #         num_char = str(num)
+    #     else:
+    #         num_char = str(num)
+    #         while len(num_char) < 3:
+    #             num_char = f"0{num_char}"
 
-#     return num_char
+    #     return num_char
 
-# def genera_nro_pedido(
-#     self, posi_letra, num
-# ) -> str:  # posi_letra y num los obtiene de la base de datos
-#     abecedario = list(string.ascii_uppercase)
+    # def genera_nro_pedido(
+    #     self, posi_letra, num
+    # ) -> str:  # posi_letra y num los obtiene de la base de datos
+    #     abecedario = list(string.ascii_uppercase)
 
-#     if num == 999:
-#         posi_letra += 1
-#         num = 0
-#     else:
-#         num += 1
-#     self._id_pedido = f"{abecedario[posi_letra]}{self.num_character(num)}"
+    #     if num == 999:
+    #         posi_letra += 1
+    #         num = 0
+    #     else:
+    #         num += 1
+    #     self._id_pedido = f"{abecedario[posi_letra]}{self.num_character(num)}"
 
 
 class ModeloPedidos:
@@ -152,14 +152,33 @@ class ModeloPedidos:
     def genera_nro_pedido(self) -> str:
         abecedario = list(string.ascii_uppercase)
 
-        consulta = "SELECT valor_dato FROM public.datos_id ORDER BY id_dato ASC;"  # Primer dato = num, segundo dato = posi_letra
+        # consulta = "SELECT valor_dato FROM public.datos_id ORDER BY id_dato ASC;"  # Primer dato = num, segundo dato = posi_letra
+        # valores = self.base.getAll(consulta)
+        # if num == 999:  # Obtenido de base de datos
+        #     posi_letra += 1  # Obtenido de base de datos -> Tiene que actualizar la base
+        #     num = 0
+
+        # nro_pedido = f"{abecedario[posi_letra]}{self.num_character(num)}"
+
+        # num += 1  # -> Tiene que actualizar la base
+
+        consulta = "SELECT id_dato, valor_dato FROM public.datos_id ORDER BY id_dato ASC;"  # Primer dato = posi_letra, segundo dato = num (Al reves en mi compu)
         valores = self.base.getAll(consulta)
-        if num == 999:  # Obtenido de base de datos
-            posi_letra += 1  # Obtenido de base de datos -> Tiene que actualizar la base
-            num = 0
+        posi_letra = valores[0][1]
+        num = valores[1][1] 
 
         nro_pedido = f"{abecedario[posi_letra]}{self.num_character(num)}"
 
-        num += 1  # -> Tiene que actualizar la base
+        if num == 999:  # Obtenido de base de datos
+            posi_letra += 1  # Obtenido de base de datos -> Tiene que actualizar la base
+            num = 0
+            consulta = "UPDATE public.datos_id SET valor_dato = CASE WHEN id_dato = 1 THEN %s WHEN id_dato = 2 THEN %s END;"
+            parametros = posi_letra, num
+        else:
+            num += 1  # -> Tiene que actualizar la base
+            consulta = "UPDATE public.datos_id SET valor_dato = %s WHERE id_dato = 2"
+            parametros = (num,)
+        self.base.query(consulta, parametros)
 
+        print(nro_pedido)
         return nro_pedido
