@@ -79,9 +79,11 @@ class ModeloPedidos:
     # * ABM
 
     def insertar_pedido(self, dni, horas_estimadas, requisitos):
+
         consulta = "SELECT id_cliente FROM public.cliente WHERE dni_cliente = %s"
         parametros = (dni,)
         id_cliente = self.base.get(consulta, parametros)
+    
         # TODO: agregar código que genere carpeta titulada con el nro pedido según la ruta default (escritorio en carpeta emprendimiento, si no existe la genera al crear el primer pedido) o la que seleccione el usuario en el primer ingreso
         # TODO: agregar a la tabla config la ruta en la que se guardan las carpetas de referencia
         ruta_ref = "-"
@@ -172,9 +174,9 @@ class ModeloPedidos:
             parametros = (num,)
         self.base.query(consulta, parametros)
 
-        print(nro_pedido)
+        print(f"Identificador del pedido generado: {nro_pedido}")
         return nro_pedido
 
 pedido = ModeloPedidos()
 
-pedido.insertar_pedido(43719784, 5, "Retrato de mascota al óleo.")
+pedido.insertar_pedido('43719784', '5', "Retrato de mascota al óleo.")
