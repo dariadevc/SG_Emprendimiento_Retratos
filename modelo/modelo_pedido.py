@@ -82,6 +82,8 @@ class ModeloPedidos:
         consulta = "SELECT id_cliente FROM public.cliente WHERE dni_cliente = %s"
         parametros = (dni,)
         id_cliente = self.base.get(consulta, parametros)
+        # TODO: agregar código que genere carpeta titulada con el nro pedido según la ruta default (escritorio en carpeta emprendimiento, si no existe la genera al crear el primer pedido) o la que seleccione el usuario en el primer ingreso
+        # TODO: agregar a la tabla config la ruta en la que se guardan las carpetas de referencia
         ruta_ref = "-"
         nro_pedido = self.genera_nro_pedido()
 
@@ -152,16 +154,6 @@ class ModeloPedidos:
     def genera_nro_pedido(self) -> str:
         abecedario = list(string.ascii_uppercase)
 
-        # consulta = "SELECT valor_dato FROM public.datos_id ORDER BY id_dato ASC;"  # Primer dato = num, segundo dato = posi_letra
-        # valores = self.base.getAll(consulta)
-        # if num == 999:  # Obtenido de base de datos
-        #     posi_letra += 1  # Obtenido de base de datos -> Tiene que actualizar la base
-        #     num = 0
-
-        # nro_pedido = f"{abecedario[posi_letra]}{self.num_character(num)}"
-
-        # num += 1  # -> Tiene que actualizar la base
-
         consulta = "SELECT id_dato, valor_dato FROM public.datos_id ORDER BY id_dato ASC;"  # Primer dato = posi_letra, segundo dato = num (Al reves en mi compu)
         valores = self.base.getAll(consulta)
         posi_letra = valores[0][1]
@@ -182,3 +174,7 @@ class ModeloPedidos:
 
         print(nro_pedido)
         return nro_pedido
+
+pedido = ModeloPedidos()
+
+pedido.insertar_pedido(43719784, 5, "Retrato de mascota al óleo.")
