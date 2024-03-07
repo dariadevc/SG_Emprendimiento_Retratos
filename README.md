@@ -23,9 +23,8 @@ Además, al artista le interesa conocer la cantidad de retratos realizados, los 
 ## Funcionalidades
 
 <details>
-<summary>06/03/24</summary>
+<summary>Gestión de Pedidos</summary>
 
-### Gestión de Pedidos
 * Un pedido contiene los siguientes datos:
     * Nombre y apellido del cliente.
     * DNI del cliente
@@ -53,7 +52,11 @@ Además, al artista le interesa conocer la cantidad de retratos realizados, los 
     * EN CAMINO
     * ENTREGADO AL CLIENTE
 
-### Registro de Clientes y sus pedidos
+</details>
+
+<details>
+<summary>Registro de Clientes y sus pedidos</summary>
+
 * Datos del cliente:
     * Nombre
     * Apellido
@@ -61,13 +64,15 @@ Además, al artista le interesa conocer la cantidad de retratos realizados, los 
     * Email de contacto
 * Listado de pedidos del cliente ordenados por número y el estado en el que se encuentran.
 * Vista para que los clientes, al ingresar su DNI, puedan ver el estado de sus pedidos.
+</details>
 
-### Impresión de reportes
+<details>
+<summary>Impresión de reportes</summary>
+
 * Se realizan reportes mensuales, para acceder a ellos debe ingresar el mes y año del que desea obtener los datos (MMAAAA).
 * Los reportes a realizarse son los siguientes:
     * Listado de pedidos y clientes.
     * Listado de costos y ventas, y cálculo de ganancias.
-
 
 </details>
 - - - -
