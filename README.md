@@ -21,3 +21,20 @@ _Proyecto para la asignatura Programación Orientada a Objetos en el año 2024._
     <li>Fourth item</li>
     </ul>
 </details>
+
+<details>
+  <summary>Click me</summary>
+  
+  ### Heading
+  1. Foo
+  2. Bar
+     * Baz
+     * Qux
+
+  ### Some Javascript
+  ```js
+  function logSomething(something) {
+    console.log('Something', something);
+  }
+  ```
+</details>
