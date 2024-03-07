@@ -75,6 +75,7 @@ Además, al artista le interesa conocer la cantidad de retratos realizados, los 
     * Listado de costos y ventas, y cálculo de ganancias.
 
 </details>
+
 - - - -
 
 ## Notas
