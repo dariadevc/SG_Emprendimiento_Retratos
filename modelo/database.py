@@ -23,28 +23,52 @@ class DataBase(metaclass=DataBaseMeta):
             )
             print("¡Conexion exitosa!")
         except (Exception, psycopg2.DatabaseError) as error:
-            print("error")
+            print(f"Error al conectar con la base de datos: {error}")
 
-    def getAll(self, query, params=None):
-        cursor = self.conexion.cursor()
-        cursor.execute(query, params)
-        return cursor.fetchall()
-        # result = cursor.fetchall()
-        # if result:
-        #     return [item[0] for item in result]  # Extrae el primer elemento de cada tupla
-        # else:
-        #     return []
+    def obtener_todos(self, query, params=None):
+        try: 
+            cursor = self.conexion.cursor()
+            cursor.execute(query, params)
+            return cursor.fetchall()
+            # result = cursor.fetchall()
+            # if result:
+            #     return [item[0] for item in result]  # Extrae el primer elemento de cada tupla
+            # else:
+            #     return []
+        except Exception as error:
+            print(f"Error en la consulta, no se pudo obtener el elemento de la base de datos ({error})")
 
-    def get(self, query, params=None):
-        cursor = self.conexion.cursor()
-        cursor.execute(query, params)
-        return cursor.fetchone()
+    def obtener_uno(self, query, params=None):
+        try:
+            cursor = self.conexion.cursor()
+            cursor.execute(query, params)
+            return cursor.fetchone()
+        except Exception as error:
+            print(f"Error en la consulta, no se pudieron obtener los elementos de la base de datos ({error})")
 
-    def query(self, query, params=None):
-        cursor = self.conexion.cursor()
-        cursor.execute(query, params)
-        return cursor.connection.commit()
+    def agregar_elemento(self, query, params=None):
+        try:
+            cursor = self.conexion.cursor()
+            cursor.execute(query, params)
+            return cursor.connection.commit()
+        except Exception as error:
+            print(f"Error en la consulta, no se pudo agregar el elemento a la base de datos ({error})")
 
+    def modificar_elemento(self, query, params=None):
+        try:
+            cursor = self.conexion.cursor()
+            cursor.execute(query, params)
+            return cursor.connection.commit()
+        except Exception as error:
+            print(f"Error en la consulta, no se pudo modificar el elemento de la base de datos ({error})")
+
+    def eliminar_elemento(self, query, params=None):
+        try:
+            cursor = self.conexion.cursor()
+            cursor.execute(query, params)
+            return cursor.connection.commit()
+        except Exception as error:
+            print(f"Error en la consulta, no se pudo eliminar el elemento a la base de  datos ({error})")
 
 # base = DataBase()
 # consulta = "SELECT detalle_dato, valor_dato FROM public.datos_id ORDER BY id_dato ASC; "
